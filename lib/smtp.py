@@ -54,5 +54,6 @@ class smtprelay:
         self.stats['successes'] += num
         if not num:
             self.stats['failures'] += 1
-            self.error_level += (1 + self.error_level/2)
+            self.error_level = min(settings.get('max_backoff') or 15, (self.error_level + 1 + self.error_level/2))
+
 
